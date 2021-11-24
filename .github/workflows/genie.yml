@@ -1,0 +1,25 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+
+name: Build with GENie
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: seanmiddleditch/gha-setup-ninja@master
+      - name: GENie/ninja Build
+        run: make genie
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: cppBuildTest
+          path: build/bin/linux/cppBuildTest
+          retention-days: 1
