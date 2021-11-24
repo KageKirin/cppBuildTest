@@ -23,3 +23,7 @@ update-genie-linux: ./bin/linux
 
 update-genie: update-genie-darwin update-genie-linux update-genie-windows
 	@echo Updated genie binaries
+
+genie build-genie: update-genie-os
+	$(GENIE) ninja
+	make -C build/projects
